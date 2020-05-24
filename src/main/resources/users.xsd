@@ -15,7 +15,7 @@
     <xs:element name="getUserResponse">
         <xs:complexType>
             <xs:sequence>
-                <xs:element name="user" type="tns:UserDto"/>
+                <xs:element name="user" type="tns:userDto"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
@@ -23,7 +23,7 @@
     <xc:element name="addUserRequest">
         <xs:complexType>
             <xs:sequence>
-                <xs:element name="user" type="tns:UserDto"/>
+                <xs:element name="user" type="tns:userDto"/>
             </xs:sequence>
         </xs:complexType>
     </xc:element>
@@ -31,7 +31,7 @@
     <xc:element name="addUserResponse">
         <xs:complexType>
             <xs:sequence>
-                <xs:element name="user" type="tns:UserDto"/>
+                <xs:element name="user" type="tns:userDto"/>
             </xs:sequence>
         </xs:complexType>
     </xc:element>
@@ -45,7 +45,7 @@
     <xs:element name="getUsersResponse">
         <xs:complexType>
             <xs:sequence>
-                <xs:element name="users" type="tns:UserDto" minOccurs="0" maxOccurs="unbounded"/>
+                <xs:element name="users" type="tns:userDto" minOccurs="0" maxOccurs="unbounded"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
@@ -53,7 +53,7 @@
     <xs:element name="updateUserRequest">
         <xs:complexType>
             <xs:sequence>
-                <xs:element name="user" type="tns:UserDto"/>
+                <xs:element name="user" type="tns:userDto"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
@@ -61,7 +61,7 @@
     <xs:element name="updateUserResponse">
         <xs:complexType>
             <xs:sequence>
-                <xs:element name="user" type="tns:UserDto"/>
+                <xs:element name="user" type="tns:userDto"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
@@ -74,7 +74,7 @@
         </xs:complexType>
     </xs:element>
 
-    <xs:complexType name="UserDto">
+    <xs:complexType name="userDto">
         <xs:sequence>
             <xs:element name="id" type="xs:int" nillable="true"/>
             <xs:element name="name" type="xs:string"/>

@@ -11,7 +11,7 @@ import org.springframework.ws.server.endpoint.annotation.ResponsePayload;
 @Endpoint
 public class UserEndpoint {
     private static final String NAMESPACE = "http://dto.soapproducer.yura.com";
-    private static final ObjectFactory FACTORY = new ObjectFactory();
+//    private static final ObjectFactory new ObjectFactory = new ObjectFactory();
 
     private final UserService userService;
 
@@ -23,7 +23,7 @@ public class UserEndpoint {
     @PayloadRoot(namespace = NAMESPACE, localPart = "getUserRequest")
     @ResponsePayload
     public GetUserResponse getUserRequest(@RequestPayload GetUserRequest request) {
-        GetUserResponse response = FACTORY.createGetUserResponse();
+        GetUserResponse response = new ObjectFactory().createGetUserResponse();
 
         response.setUser(userService.findById(request.getId()));
 
@@ -33,7 +33,7 @@ public class UserEndpoint {
     @PayloadRoot(namespace = NAMESPACE, localPart = "addUserRequest")
     @ResponsePayload
     public AddUserResponse addUserRequest(@RequestPayload AddUserRequest request) {
-        AddUserResponse response = FACTORY.createAddUserResponse();
+        AddUserResponse response = new ObjectFactory().createAddUserResponse();
 
         response.setUser(userService.add(request.getUser()));
 
@@ -43,7 +43,7 @@ public class UserEndpoint {
     @PayloadRoot(namespace = NAMESPACE, localPart = "getUsersRequest")
     @ResponsePayload
     public GetUsersResponse getUsersRequest(@RequestPayload GetUsersRequest request) {
-        GetUsersResponse response = FACTORY.createGetUsersResponse();
+        GetUsersResponse response = new ObjectFactory().createGetUsersResponse();
 
         userService.findAll().forEach(user -> response.getUsers().add(user));
 
@@ -53,7 +53,7 @@ public class UserEndpoint {
     @PayloadRoot(namespace = NAMESPACE, localPart = "updateUserRequest")
     @ResponsePayload
     public UpdateUserResponse updateUserRequest(@RequestPayload UpdateUserRequest request) {
-        UpdateUserResponse response = FACTORY.createUpdateUserResponse();
+        UpdateUserResponse response = new ObjectFactory().createUpdateUserResponse();
 
         response.setUser(userService.update(request.getUser(), request.getUser().getId()));
 

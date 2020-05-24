@@ -9,8 +9,9 @@ import org.springframework.ws.config.annotation.EnableWs;
 import org.springframework.ws.config.annotation.WsConfigurerAdapter;
 import org.springframework.ws.transport.http.MessageDispatcherServlet;
 import org.springframework.ws.wsdl.wsdl11.DefaultWsdl11Definition;
-import org.springframework.xml.xsd.SimpleXsdSchema;
 import org.springframework.xml.xsd.XsdSchema;
+import org.springframework.xml.xsd.XsdSchemaCollection;
+import org.springframework.xml.xsd.commons.CommonsXsdSchemaCollection;
 
 @Configuration
 @EnableWs
@@ -25,17 +26,23 @@ public class WebServiceConfiguration extends WsConfigurerAdapter {
     }
 
     @Bean
-    public XsdSchema userSchema() {
-        return new SimpleXsdSchema(new ClassPathResource("users.xsd"));
+    public XsdSchemaCollection schemaCollection() {
+        CommonsXsdSchemaCollection commonsXsdSchemaCollection = new CommonsXsdSchemaCollection(
+                new ClassPathResource("users.xsd"),
+                new ClassPathResource("orders.xsd"));
+
+        commonsXsdSchemaCollection.setInline(true);
+
+        return commonsXsdSchemaCollection;
     }
 
-    @Bean
-    public DefaultWsdl11Definition defaultWsdl11Definition(XsdSchema userSchema) {
+    @Bean(name = "appWsdl")
+    public DefaultWsdl11Definition defaultWsdl11Definition(XsdSchemaCollection schemaCollection) {
         DefaultWsdl11Definition wsdl11Definition = new DefaultWsdl11Definition();
         wsdl11Definition.setPortTypeName("UserService");
         wsdl11Definition.setLocationUri("/ws");
         wsdl11Definition.setTargetNamespace("http://dto.soapproducer.yura.com");
-        wsdl11Definition.setSchema(userSchema);
+        wsdl11Definition.setSchemaCollection(schemaCollection);
         return wsdl11Definition;
     }
 }
