@@ -2,26 +2,26 @@ package com.yura.soapproducer.service.mapper;
 
 import com.yura.soapproducer.dto.UserDto;
 import com.yura.soapproducer.entity.UserEntity;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.util.Collection;
 import java.util.Objects;
-import java.util.Optional;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 @Component
 public class UserMapper implements EntityMapper<UserEntity, UserDto> {
 
     @Override
     public UserDto mapEntityToDto(UserEntity entity) {
-        return Objects.isNull(entity) ? null : UserDto.builder()
-                .withId(entity.getId())
-                .withName(entity.getName())
-                .withEmail(entity.getEmail())
-                .withPassword(entity.getPassword())
-                .build();
+        if (Objects.isNull(entity)) {
+            return null;
+        }
+
+        UserDto userDto = new UserDto();
+        userDto.setId(entity.getId());
+        userDto.setName(entity.getName());
+        userDto.setEmail(entity.getEmail());
+        userDto.setPassword(entity.getPassword());
+
+        return userDto;
     }
 
     @Override
