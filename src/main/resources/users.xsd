@@ -1,6 +1,5 @@
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
            xmlns:tns="http://dto.soapproducer.yura.com"
-           xmlns:xc="http://www.w3.org/2001/XMLSchema"
            targetNamespace="http://dto.soapproducer.yura.com"
            elementFormDefault="qualified">
 
@@ -20,21 +19,21 @@
         </xs:complexType>
     </xs:element>
 
-    <xc:element name="addUserRequest">
+    <xs:element name="addUserRequest">
         <xs:complexType>
             <xs:sequence>
                 <xs:element name="user" type="tns:userDto"/>
             </xs:sequence>
         </xs:complexType>
-    </xc:element>
+    </xs:element>
 
-    <xc:element name="addUserResponse">
+    <xs:element name="addUserResponse">
         <xs:complexType>
             <xs:sequence>
                 <xs:element name="user" type="tns:userDto"/>
             </xs:sequence>
         </xs:complexType>
-    </xc:element>
+    </xs:element>
 
     <xs:element name="getUsersRequest">
         <xs:complexType>
@@ -80,6 +79,7 @@
             <xs:element name="name" type="xs:string"/>
             <xs:element name="email" type="xs:string"/>
             <xs:element name="password" type="xs:string"/>
+            <xs:element name="orders" type="tns:orderDto" minOccurs="0" maxOccurs="unbounded" nillable="true"/>
         </xs:sequence>
     </xs:complexType>
 </xs:schema>

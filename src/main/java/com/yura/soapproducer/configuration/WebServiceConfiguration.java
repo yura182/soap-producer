@@ -36,7 +36,7 @@ public class WebServiceConfiguration extends WsConfigurerAdapter {
         return commonsXsdSchemaCollection;
     }
 
-    @Bean(name = "appWsdl")
+    @Bean(name = "app")
     public DefaultWsdl11Definition defaultWsdl11Definition(XsdSchemaCollection schemaCollection) {
         DefaultWsdl11Definition wsdl11Definition = new DefaultWsdl11Definition();
         wsdl11Definition.setPortTypeName("UserService");
