@@ -92,9 +92,10 @@ class UserServiceImplTest {
     }
 
     private static UserDto getUserDto() {
-        return UserDto.builder()
-                .withEmail("test@email.com")
-                .withName("Name")
-                .build();
+        UserDto userDto = new UserDto();
+        userDto.setEmail("test@email.com");
+        userDto.setName("Name");
+
+        return userDto;
     }
 }

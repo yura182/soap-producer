@@ -47,7 +47,8 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void delete(Integer id) {
-        UserDto userDto = UserDto.builder().withId(id).build();
+        UserDto userDto = new UserDto();
+        userDto.setId(id);
 
         userRepository.delete(userMapper.mapDtoToEntity(userDto));
     }

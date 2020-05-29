@@ -14,14 +14,29 @@ import java.util.stream.Stream;
 @Component
 public class UserMapper implements EntityMapper<UserEntity, UserDto> {
 
+    private final OrderMapper orderMapper;
+
+    @Autowired
+    public UserMapper(OrderMapper orderMapper) {
+        this.orderMapper = orderMapper;
+    }
+
     @Override
     public UserDto mapEntityToDto(UserEntity entity) {
-        return Objects.isNull(entity) ? null : UserDto.builder()
-                .withId(entity.getId())
-                .withName(entity.getName())
-                .withEmail(entity.getEmail())
-                .withPassword(entity.getPassword())
-                .build();
+        if (Objects.isNull(entity)) {
+            return null;
+        }
+
+        UserDto userDto = new UserDto();
+        userDto.setId(entity.getId());
+        userDto.setName(entity.getName());
+        userDto.setEmail(entity.getEmail());
+        userDto.setPassword(entity.getPassword());
+
+        entity.getOrders()
+                .forEach(order->userDto.getOrders().add(orderMapper.mapEntityToDto(order)));
+
+        return userDto;
     }
 
     @Override
@@ -31,6 +46,11 @@ public class UserMapper implements EntityMapper<UserEntity, UserDto> {
                 .withName(dto.getName())
                 .withEmail(dto.getEmail())
                 .withPassword(dto.getPassword())
+                .withOrders(Optional.ofNullable(dto.getOrders())
+                        .map(Collection::stream)
+                        .orElseGet(Stream::empty)
+                        .map(orderMapper::mapDtoToEntity)
+                        .collect(Collectors.toList()))
                 .build();
     }
 }
